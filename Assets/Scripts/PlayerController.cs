@@ -50,6 +50,24 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //ダメージフラグが立っているあいだ
+        if (inDamage)
+        {
+            //点滅演出
+            //Sinメソッドの角度情報にゲーム開始からの経過時間を与える
+            float val = Mathf.Sin(Time.time * 50);
+            if (val > 0)
+            {
+                //
+                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            }
+                //
+                return;
+        }
         //入力状況に応じてPlayerを動かす
         rbody.linearVelocity = (new Vector2(axisH, axisV)).normalized * playerSpeed;
     }
@@ -130,6 +148,47 @@ public class PlayerController : MonoBehaviour
         {
             anime.SetBool("run", false);//走るフラグをoff
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //ぶつかった相手がEnemyだったら
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            GetDamage(collision.gameObject);//ダメージ処理
+        }
+    }
+
+    void GetDamage(GameObject enemy)
+    {
+        if (GameManager.gameState != GameState.playing) return;
+
+        GameManager.playerHP--;//プレイヤーHPを1減らす
+
+        if (GameManager.playerHP > 0)
+        {
+            //
+            rbody.linearVelocity = Vector2.zero; //new Vector2(0.0)
+            //プレイヤーと敵との差を取得し、方向を決める
+            Vector3 v = (transform.position - enemy.transform.position).normalized;
+            //
+            rbody.AddForce(v * 4, ForceMode2D.Impulse);
+
+            //
+            inDamage = true;
+
+            Invoke("DamageEnd", 0.25f);
+        }
+        else
+        {
+            //
+            //GameOver();
+        }
+    }
+
+    void DamageEnd()
+    {
+        inDamage = false;//
     }
 
 }

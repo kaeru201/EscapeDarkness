@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BillData : MonoBehaviour
@@ -32,15 +33,7 @@ public class BillData : MonoBehaviour
             //‡C©•ª©M‚ğ–•Á(0.5•bŒã)
             Destroy(gameObject, 0.5f);
 
-
-            //‡@ƒRƒ‰ƒCƒ_[‚ğ–³Œø‰»
-
-            //‡ARigidbody2D‚Ì•œŠˆ(Dynamic‚É‚·‚é)
-
-            //‡Bã‚É‘Å‚¿ã‚°(ãŒü‚«5‚Ì—Íj
-
-
-            //‡C©•ª©M‚ğ–•Á(0.5•bŒã)
+                        
         }
     }
 

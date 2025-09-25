@@ -49,6 +49,8 @@ public class DoorController : MonoBehaviour
     //
     IEnumerator TalkProcess()
     {
+        SoundManager.instance.SEPlay(SEType.Door);//ドアの音
+
         //
         yield return new WaitForSecondsRealtime(0.1f);
 
@@ -90,6 +92,8 @@ public class DoorController : MonoBehaviour
 
         if (nextTalk)
         {
+            SoundManager.instance.SEPlay(SEType.DoorOpen);//ドアが開いた音
+
             nameText.text = message.msgArray[1].name;
             messageText.text = message.msgArray[1].message;
 

@@ -4,20 +4,20 @@ public class Shooter : MonoBehaviour
 {
     PlayerController playerCnt;
 
-    public GameObject billPrefab;//Instatiate‚ğ¶¬‚·‚é‘ÎÛƒIƒuƒWƒFƒNƒg
+    public GameObject billPrefab;//Instatiateã‚’ç”Ÿæˆã™ã‚‹å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     public float shootSpeed;//
     public float shootDelay;//
     bool inAttack;//
 
     void Start()
     {
-        playerCnt = GetComponent<PlayerController>();//ƒRƒ“ƒ|[ƒlƒ“ƒgæ“¾
+        playerCnt = GetComponent<PlayerController>();//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå–å¾—
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ƒXƒy[ƒXƒL[‚ğ‰Ÿ‚µ‚½‚ç‚¨D‚ğ“Š±
+        //ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰ãŠæœ­ã‚’æŠ•æ“²
         if (Input.GetButtonDown("Jump")) Shoot();
     }
 
@@ -25,38 +25,39 @@ public class Shooter : MonoBehaviour
     {
         if (inAttack || GameManager.bill <= 0) return;
 
-        GameManager.bill--;//‚¨D‚Ì”‚ğŒ¸‚ç‚·
-        inAttack = true;//UŒ‚’†
+        SoundManager.instance.SEPlay(SEType.Shoot);//ãŠæœ­ã‚’æŠ•ã’ã‚‹éŸ³
+        GameManager.bill--;//ãŠæœ­ã®æ•°ã‚’æ¸›ã‚‰ã™
+        inAttack = true;//æ”»æ’ƒä¸­
 
-        //ƒvƒŒƒCƒ„[‚ÌŠp“x‚ğ“üè
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è§’åº¦ã‚’å…¥æ‰‹
         float angleZ = playerCnt.angleZ;
-        //Rotation‚ªˆµ‚Á‚Ä‚¢‚éQuatenionŒ^‚Æ‚µ‚Ä€”õ
+        //RotationãŒæ‰±ã£ã¦ã„ã‚‹Quatenionå‹ã¨ã—ã¦æº–å‚™
         Quaternion q = Quaternion.Euler(0, 0, angleZ);
 
-        //¶¬¦‚¨DAƒvƒŒƒCƒ„[‚ÌˆÊ’uAƒvƒŒƒCƒ„[‚Æ“¯‚¶Šp“x @¶¬‚Æ‚·‚é‚Æ“¯‚É‚»‚Ìî•ñ‚ğobj•Ï”‚É‘ã“ü‚·‚é
+        //ç”Ÿæˆâ€»ãŠæœ­ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨åŒã˜è§’åº¦ ã€€ç”Ÿæˆã¨ã™ã‚‹ã¨åŒæ™‚ã«ãã®æƒ…å ±ã‚’objå¤‰æ•°ã«ä»£å…¥ã™ã‚‹
         GameObject obj = Instantiate(billPrefab, transform.position, q);
 
-        //¶¬‚µ‚½ƒIƒuƒWƒFƒNƒg‚ÌRigid2D‚Ìî•ñ‚ğæ“¾
+        //ç”Ÿæˆã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Rigid2Dã®æƒ…å ±ã‚’å–å¾—
         Rigidbody2D rbody = obj.GetComponent<Rigidbody2D>();
 
-        //¶¬‚µ‚½ƒIƒuƒWƒFƒNƒg‚ªŒü‚­‚×‚«•ûŠp‚ğ“üè
-        float x = Mathf.Cos(angleZ * Mathf.Deg2Rad);//Šp“x‚É‘Î‚·‚é’ê•Ó@X²‚Ì•ûŒü
+        //ç”Ÿæˆã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå‘ãã¹ãæ–¹è§’ã‚’å…¥æ‰‹
+        float x = Mathf.Cos(angleZ * Mathf.Deg2Rad);//è§’åº¦ã«å¯¾ã™ã‚‹åº•è¾ºã€€Xè»¸ã®æ–¹å‘
         float y = Mathf.Sin(angleZ * Mathf.Deg2Rad);//
 
-        //Šp“x‚ğ•ª‰ğ‚µ‚½x‚Æy‚ğ‚à‚Æ‚É•ûŒüƒf[ƒ^‚ğ®—
+        //è§’åº¦ã‚’åˆ†è§£ã—ãŸxã¨yã‚’ã‚‚ã¨ã«æ–¹å‘ãƒ‡ãƒ¼ã‚¿ã‚’æ•´ç†
         Vector2 v = (new Vector2(x, y)).normalized * shootSpeed;
 
-        //AddForce‚Åw’è‚µ‚½•ûŠp‚É”ò‚Î‚·
+        //AddForceã§æŒ‡å®šã—ãŸæ–¹è§’ã«é£›ã°ã™
         rbody.AddForce(v, ForceMode2D.Impulse);
 
-        //ŠÔ·‚ÅUŒ‚’†ƒtƒ‰ƒO‚ğ‰ğœ
+        //æ™‚é–“å·®ã§æ”»æ’ƒä¸­ãƒ•ãƒ©ã‚°ã‚’è§£é™¤
         Invoke("StopAttack", shootDelay);
 
     }
 
     void StopAttack()
     {
-        inAttack = false;//UŒ‚’†ƒtƒ‰ƒO‚ğOFF‚É‚·‚é
+        inAttack = false;//æ”»æ’ƒä¸­ãƒ•ãƒ©ã‚°ã‚’OFFã«ã™ã‚‹
     }
 
 }

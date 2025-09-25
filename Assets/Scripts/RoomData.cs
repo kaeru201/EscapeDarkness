@@ -10,17 +10,19 @@ public enum DoorDirection
 
 public class RoomData : MonoBehaviour
 {
-    public string roomName; //o“ü‚èŒû‚Ì¯•Ê–¼
-    public string nextRoomName; //ƒV[ƒ“Ø‚è‘Ö‚¦æ‚Å‚Ìsæ
-    public string nextScene; //ƒV[ƒ“Ø‚è‘Ö‚¦æ
-    public bool openedDoor; //ƒhƒA‚ÌŠJ•Âó‹µƒtƒ‰ƒO
-    public DoorDirection direction; //ƒvƒŒƒCƒ„[‚Ì”z’uˆÊ’u
-    public MessageData message; //ƒg[ƒNƒf[ƒ^
-    public GameObject door; //•\¦/”ñ•\¦‘ÎÛ‚ÌƒhƒAî•ñ
+    public string roomName; //å‡ºå…¥ã‚Šå£ã®è­˜åˆ¥å
+    public string nextRoomName; //ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆå…ˆã§ã®è¡Œå…ˆ
+    public string nextScene; //ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆå…ˆ
+    public bool openedDoor; //ãƒ‰ã‚¢ã®é–‹é–‰çŠ¶æ³ãƒ•ãƒ©ã‚°
+    public DoorDirection direction; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é…ç½®ä½ç½®
+    public MessageData message; //ãƒˆãƒ¼ã‚¯ãƒ‡ãƒ¼ã‚¿
+    public GameObject door; //è¡¨ç¤º/éè¡¨ç¤ºå¯¾è±¡ã®ãƒ‰ã‚¢æƒ…å ±
+
+    public bool isSavePoint;//ã‚»ãƒ¼ãƒ–ãƒã‚¤ãƒ³ãƒˆã«ä½¿ã‚ã‚Œã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã«ã™ã‚‹ã‹ã©ã†ã‹
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player")ã€€&& !isSavePoint)
         {
             ChangeScene();
         }
@@ -28,8 +30,8 @@ public class RoomData : MonoBehaviour
 
     public void ChangeScene()
     {
-        //‚±‚ÌRoom‚ÉG‚ê‚½‚ç‚Ç‚±‚És‚­‚Ì‚©‚ğ•Ï”nextRoomName‚ÅŒˆ‚ß‚Ä‚¨‚­
-        //ƒV[ƒ“‚ªØ‚è‘Ö‚í‚Á‚Äî•ñ‚ªƒŠƒZƒbƒg‚³‚ê‚é‘O‚Éstatic•Ï”‚Å‚ ‚étoRoomNumber‚Ésæî•ñ‚ğ‹L˜^
+        //ã“ã®Roomã«è§¦ã‚ŒãŸã‚‰ã©ã“ã«è¡Œãã®ã‹ã‚’å¤‰æ•°nextRoomNameã§æ±ºã‚ã¦ãŠã
+        //ã‚·ãƒ¼ãƒ³ãŒåˆ‡ã‚Šæ›¿ã‚ã£ã¦æƒ…å ±ãŒãƒªã‚»ãƒƒãƒˆã•ã‚Œã‚‹å‰ã«staticå¤‰æ•°ã§ã‚ã‚‹toRoomNumberã«è¡Œå…ˆæƒ…å ±ã‚’è¨˜éŒ²
         RoomManager.toRoomNumber = nextRoomName;
 
         SceneManager.LoadScene(nextScene);
@@ -37,7 +39,7 @@ public class RoomData : MonoBehaviour
 
     public void DoorOpenCheck()
     {
-        //‚à‚µ‚àŠJù‚³‚ê‚Ä‚¢‚½‚çqƒIƒuƒWƒFƒNƒg‚Å‚ ‚é•Ï”door‚Í”ñ•\¦
+        //ã‚‚ã—ã‚‚é–‹éŒ ã•ã‚Œã¦ã„ãŸã‚‰å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã‚ã‚‹å¤‰æ•°doorã¯éè¡¨ç¤º
         if (openedDoor) door.SetActive(false);
     }
 

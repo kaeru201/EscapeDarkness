@@ -100,9 +100,10 @@ MonoBehaviour:
   nextRoomName: 
   nextScene: 
   openedDoor: 0
-  direction: 0
+  direction: 1
   message: {fileID: 0}
   door: {fileID: 0}
+  isSavePoint: 1
 --- !u!1 &7678958594297843176
 GameObject:
   m_ObjectHideFlags: 0

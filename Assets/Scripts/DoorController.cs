@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    public RoomData roomData;//eƒIƒuƒWƒF‚Ì‚Á‚Ä‚¢‚éƒXƒNƒŠƒvƒg‚ğæ“¾‚·‚é‚½‚ß‚Ì‚à‚Ì
-    MessageData message;//eƒIƒuƒWƒF‚ª‚ÂScriptalObjectî•ñ‚ğæ“¾
+    public RoomData roomData;//è¦ªã‚ªãƒ–ã‚¸ã‚§ã®æŒã£ã¦ã„ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ã‚‚ã®
+    MessageData message;//è¦ªã‚ªãƒ–ã‚¸ã‚§ãŒæŒã¤ScriptalObjectæƒ…å ±ã‚’å–å¾—
 
-    bool isPlayerInRange; //ƒvƒŒƒCƒ„[‚ª—Ìˆæ‚É“ü‚Á‚½‚©‚Ç‚¤‚©
-    bool isTalk; //ƒg[ƒN‚ªŠJn‚³‚ê‚½‚©‚Ç‚¤‚©
-    GameObject canvas; //ƒg[ƒNUI‚ğŠÜ‚ñ‚¾CanvasƒIƒuƒWƒFƒNƒg
-    GameObject talkPanel; //‘ÎÛ‚Æ‚È‚éƒg[ƒNUIƒpƒlƒ‹
-    TextMeshProUGUI nameText; //‘ÎÛ‚Æ‚È‚éƒg[ƒNUIƒpƒlƒ‹‚Ì–¼‘O
-    TextMeshProUGUI messageText; //‘ÎÛ‚Æ‚È‚éƒg[ƒNUIƒpƒlƒ‹‚ÌƒƒbƒZ[ƒW
+    bool isPlayerInRange; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé ˜åŸŸã«å…¥ã£ãŸã‹ã©ã†ã‹
+    bool isTalk; //ãƒˆãƒ¼ã‚¯ãŒé–‹å§‹ã•ã‚ŒãŸã‹ã©ã†ã‹
+    GameObject canvas; //ãƒˆãƒ¼ã‚¯UIã‚’å«ã‚“ã Canvasã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    GameObject talkPanel; //å¯¾è±¡ã¨ãªã‚‹ãƒˆãƒ¼ã‚¯UIãƒ‘ãƒãƒ«
+    TextMeshProUGUI nameText; //å¯¾è±¡ã¨ãªã‚‹ãƒˆãƒ¼ã‚¯UIãƒ‘ãƒãƒ«ã®åå‰
+    TextMeshProUGUI messageText; //å¯¾è±¡ã¨ãªã‚‹ãƒˆãƒ¼ã‚¯UIãƒ‘ãƒãƒ«ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 
     void Start()
     {
-        message = roomData.message;//ƒg[ƒNƒf[ƒ^‚ÍeƒIƒuƒWƒFƒNƒg‚ÌƒXƒNƒŠƒvƒg‚É‚ ‚é•Ï”‚ğQÆ
+        message = roomData.message;//ãƒˆãƒ¼ã‚¯ãƒ‡ãƒ¼ã‚¿ã¯è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã«ã‚ã‚‹å¤‰æ•°ã‚’å‚ç…§
 
-        //ƒg[ƒNUIƒIƒuƒWƒF‚È‚Ç‚Ìî•ñ‚ğæ“¾
+        //ãƒˆãƒ¼ã‚¯UIã‚ªãƒ–ã‚¸ã‚§ãªã©ã®æƒ…å ±ã‚’å–å¾—
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         talkPanel = canvas.transform.Find("TalkPanel").gameObject;
         nameText = talkPanel.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
@@ -67,7 +67,7 @@ public class DoorController : MonoBehaviour
                 {
                     GameManager.key1--;//
                     nextTalk = true;
-                    GameManager.doorsOpendState[0] = true;
+                    GameManager.doorsOpenedState[0] = true;
                 }
                 break;
             case "fromRoom2":
@@ -75,7 +75,7 @@ public class DoorController : MonoBehaviour
                 {
                     GameManager.key2--;//
                     nextTalk = true;
-                    GameManager.doorsOpendState[1] = true;
+                    GameManager.doorsOpenedState[1] = true;
                 }
                 break;
             case "fromRoom3":
@@ -83,7 +83,7 @@ public class DoorController : MonoBehaviour
                 {
                     GameManager.key3--;//
                     nextTalk = true;
-                    GameManager.doorsOpendState[2] = true;
+                    GameManager.doorsOpenedState[2] = true;
                 }
                 break;
         }
@@ -118,20 +118,20 @@ public class DoorController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //ƒvƒŒƒCƒ„[‚ª—Ìˆæ‚É“ü‚Á‚½‚ç
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé ˜åŸŸã«å…¥ã£ãŸã‚‰
         if (collision.gameObject.CompareTag("Player"))
         {
-            //ƒtƒ‰ƒO‚ªON
+            //ãƒ•ãƒ©ã‚°ãŒON
             isPlayerInRange = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //ƒvƒŒƒCƒ„[‚ª—Ìˆæ‚©‚ço‚½‚ç
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé ˜åŸŸã‹ã‚‰å‡ºãŸã‚‰
         if (collision.gameObject.CompareTag("Player"))
         {
-            //ƒtƒ‰ƒO‚ªOFF
+            //ãƒ•ãƒ©ã‚°ãŒOFF
             isPlayerInRange = false;
         }
     }

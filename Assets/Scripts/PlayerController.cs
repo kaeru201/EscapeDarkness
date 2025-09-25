@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("ƒvƒŒƒCƒ„[‚ÌŠî‘bƒXƒe[ƒ^ƒX")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åŸºç¤ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹")]
     public float playerSpeed = 3.0f;
 
-    float axisH;//‰¡•ûŒü‚Ì“ü—Íî•ñ
-    float axisV;//c•ûŒü‚Ì“ü—Íî•ñ
+    float axisH;//æ¨ªæ–¹å‘ã®å…¥åŠ›æƒ…å ±
+    float axisV;//ç¸¦æ–¹å‘ã®å…¥åŠ›æƒ…å ±
 
-    [Header("ƒvƒŒƒCƒ„[‚ÌŠp“xŒvZ—p")]
-    public float angleZ = -90f;//ƒvƒŒƒCƒ„[‚ÌŠp“xŒvZ—p
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è§’åº¦è¨ˆç®—ç”¨")]
+    public float angleZ = -90f;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è§’åº¦è¨ˆç®—ç”¨
 
-    [Header("ƒIƒ“/ƒIƒt‚Ì‘ÎÛƒXƒ|ƒbƒgƒ‰ƒCƒg")]
-    public GameObject spotLight;//‘ÎÛ‚ÌƒXƒ|ƒbƒgƒ‰ƒCƒg
+    [Header("ã‚ªãƒ³/ã‚ªãƒ•ã®å¯¾è±¡ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆ")]
+    public GameObject spotLight;//å¯¾è±¡ã®ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆ
 
-    bool inDamage;//ƒ_ƒ[ƒW’†‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒOŠÇ—
+    bool inDamage;//ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸­ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ç®¡ç†
 
-    //ƒRƒ“ƒ|[ƒlƒ“ƒg
+    //ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     Rigidbody2D rbody;
     Animator anime;
 
@@ -28,11 +28,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
+        //ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
         rbody = GetComponent<Rigidbody2D>();
         anime = GetComponent<Animator>();
 
-        //ƒXƒ|ƒbƒgƒ‰ƒCƒg‚ğŠ‚µ‚Ä‚¢‚ê‚ÎƒXƒ|ƒbƒgƒ‰ƒCƒg‚ğ•\¦(static‚Ìê‡‚ÍƒXƒvƒ‰ƒCƒg–¼.•Ï”–¼)
+        //ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆã‚’æ‰€æŒã—ã¦ã„ã‚Œã°ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤º(staticã®å ´åˆã¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆå.å¤‰æ•°å)
         if (GameManager.hasSpotLight)
         {
             spotLight.SetActive(true);
@@ -45,19 +45,19 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.gameState != GameState.playing) return;
 
-        Move();//ã‰º¶‰E‚Ì“ü—Í’l‚Ìæ“¾
-        angleZ = GetAngle();//‚»‚Ì‚ÌŠp“x‚ğ•Ï”angleZ‚É”½‰f
-        Animation();//angleZ‚ğ—˜—p‚µ‚ÄƒAƒjƒ[ƒVƒ‡ƒ“
+        Move();//ä¸Šä¸‹å·¦å³ã®å…¥åŠ›å€¤ã®å–å¾—
+        angleZ = GetAngle();//ãã®æ™‚ã®è§’åº¦ã‚’å¤‰æ•°angleZã«åæ˜ 
+        Animation();//angleZã‚’åˆ©ç”¨ã—ã¦ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
     }
 
     private void FixedUpdate()
     {
         if (GameManager.gameState != GameState.playing) return;
-        //ƒ_ƒ[ƒWƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚ ‚¢‚¾
+        //ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹ã‚ã„ã 
         if (inDamage)
         {
-            //“_–Å‰‰o
-            //Sinƒƒ\ƒbƒh‚ÌŠp“xî•ñ‚ÉƒQ[ƒ€ŠJn‚©‚ç‚ÌŒo‰ßŠÔ‚ğ—^‚¦‚é
+            //ç‚¹æ»…æ¼”å‡º
+            //Sinãƒ¡ã‚½ãƒƒãƒ‰ã®è§’åº¦æƒ…å ±ã«ã‚²ãƒ¼ãƒ é–‹å§‹ã‹ã‚‰ã®çµŒéæ™‚é–“ã‚’ä¸ãˆã‚‹
             float val = Mathf.Sin(Time.time * 50);
             if (val > 0)
             {
@@ -71,43 +71,43 @@ public class PlayerController : MonoBehaviour
                 //
                 return;
         }
-        //“ü—Íó‹µ‚É‰‚¶‚ÄPlayer‚ğ“®‚©‚·
+        //å…¥åŠ›çŠ¶æ³ã«å¿œã˜ã¦Playerã‚’å‹•ã‹ã™
         rbody.linearVelocity = (new Vector2(axisH, axisV)).normalized * playerSpeed;
     }
 
-    //ã‰º¶‰E‚Ì“ü—Í’l‚Ìæ“¾
+    //ä¸Šä¸‹å·¦å³ã®å…¥åŠ›å€¤ã®å–å¾—
     public void Move()
     {
-        //axisH‚ÆaxisV‚É“ü—Íî•ñ‚ğ‘ã“ü‚·‚é
+        //axisHã¨axisVã«å…¥åŠ›æƒ…å ±ã‚’ä»£å…¥ã™ã‚‹
         axisH = Input.GetAxisRaw("Horizontal");
         axisV = Input.GetAxisRaw("Vertical");
     }
 
-    //‚»‚Ì‚ÌƒvƒŒƒCƒ„[‚ÌŠp“x‚ğæ“¾
+    //ãã®æ™‚ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è§’åº¦ã‚’å–å¾—
     public float GetAngle()
     {
-        //Œ»İÀ•W‚Ìæ“¾
+        //ç¾åœ¨åº§æ¨™ã®å–å¾—
         Vector2 fromPos = transform.position;
 
-        //‚»‚ÌuŠÔ‚ÌƒL[“ü—Í’l(axisHAaxisV)‚É‰‚¶‚½—\‘ªÀ•W‚Ìæ“¾
+        //ãã®ç¬é–“ã®ã‚­ãƒ¼å…¥åŠ›å€¤(axisHã€axisV)ã«å¿œã˜ãŸäºˆæ¸¬åº§æ¨™ã®å–å¾—
         Vector2 toPos = new Vector2(fromPos.x + axisH, fromPos.y + axisV);
 
-        float angle;//return‚³‚ê‚é’l‚Ì€”õ
+        float angle;//returnã•ã‚Œã‚‹å€¤ã®æº–å‚™
 
-        //‚à‚µ‚à‰½‚©‚µ‚ç‚Ì“ü—Í‚ª‚ ‚ê‚ÎAV‚½‚ÉŠp“xZo
+        //ã‚‚ã—ã‚‚ä½•ã‹ã—ã‚‰ã®å…¥åŠ›ãŒã‚ã‚Œã°ã€æ–°ãŸã«è§’åº¦ç®—å‡º
         if (axisH != 0 || axisV != 0)
         {
             float dirX = toPos.x - fromPos.x;
             float dirY = toPos.y - fromPos.y;
 
-            //‘æˆêˆø”‚É‚‚³Y,‘æ“ñˆø”‚ÉX‚ğ—^‚¦‚é‚ÆŠp“x‚ğƒ‰ƒWƒAƒ“Œ`®‚ÅZoi‰~ü‚Ì’·‚³‚Å•\Œ»j
+            //ç¬¬ä¸€å¼•æ•°ã«é«˜ã•Y,ç¬¬äºŒå¼•æ•°ã«Xã‚’ä¸ãˆã‚‹ã¨è§’åº¦ã‚’ãƒ©ã‚¸ã‚¢ãƒ³å½¢å¼ã§ç®—å‡ºï¼ˆå††å‘¨ã®é•·ã•ã§è¡¨ç¾ï¼‰
             float rad = Mathf.Atan2(dirY, dirX);
 
-            //ƒ‰ƒWƒAƒ“’l‚ğƒIƒCƒ‰[’liƒfƒOƒŠ[j‚É•ÏŠ·
+            //ãƒ©ã‚¸ã‚¢ãƒ³å€¤ã‚’ã‚ªã‚¤ãƒ©ãƒ¼å€¤ï¼ˆãƒ‡ã‚°ãƒªãƒ¼ï¼‰ã«å¤‰æ›
             angle = rad * Mathf.Rad2Deg;
 
         }
-        //‰½‚à“ü—Í‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‘OƒtƒŒ[ƒ€Šp“xî•ñ‚ğ˜‚¦’u‚«
+        //ä½•ã‚‚å…¥åŠ›ã•ã‚Œã¦ã„ãªã‘ã‚Œã°å‰ãƒ•ãƒ¬ãƒ¼ãƒ è§’åº¦æƒ…å ±ã‚’æ®ãˆç½®ã
         else
         {
             angle = angleZ;
@@ -118,47 +118,47 @@ public class PlayerController : MonoBehaviour
 
     void Animation()
     {
-        //‚È‚ñ‚ç‚©‚Ì“ü—Í‚ª‚ ‚éê‡
+        //ãªã‚“ã‚‰ã‹ã®å…¥åŠ›ãŒã‚ã‚‹å ´åˆ
         if (axisH != 0 || axisV != 0)
         {
 
             //
             anime.SetBool("run", true);
 
-            //angle‚Å•ûŠp‚ğŒˆ‚ß‚é@ƒpƒ‰ƒ[ƒ^direction intŒ^
-            //intŒ^‚Ìdirection ‰º:0@ã:1@‰E:2@¶:‚»‚êˆÈŠO
+            //angleã§æ–¹è§’ã‚’æ±ºã‚ã‚‹ã€€ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿direction intå‹
+            //intå‹ã®direction ä¸‹:0ã€€ä¸Š:1ã€€å³:2ã€€å·¦:ãã‚Œä»¥å¤–
 
-            if (angleZ > -135f && angleZ < -45f)//‰º•ûŒü
+            if (angleZ > -135f && angleZ < -45f)//ä¸‹æ–¹å‘
             {
                 anime.SetInteger("direction", 0);
             }
-            else if (angleZ >= -45 && angleZ <= 45f)//‰E
+            else if (angleZ >= -45 && angleZ <= 45f)//å³
             {
                 anime.SetInteger("direction", 2);
                 transform.localScale = new Vector2(1, 1);
             }
-            else if (angleZ >= 45f && angleZ <= 135f)//ã
+            else if (angleZ >= 45f && angleZ <= 135f)//ä¸Š
             {
                 anime.SetInteger("direction", 1);
             }
-            else//¶
+            else//å·¦
             {
                 anime.SetInteger("direction", 3);
                 transform.localScale = new Vector2(-1, 1);
             }
         }
-        else//‰½‚à“ü—Í‚ª‚È‚¢ê‡
+        else//ä½•ã‚‚å…¥åŠ›ãŒãªã„å ´åˆ
         {
-            anime.SetBool("run", false);//‘–‚éƒtƒ‰ƒO‚ğoff
+            anime.SetBool("run", false);//èµ°ã‚‹ãƒ•ãƒ©ã‚°ã‚’off
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //‚Ô‚Â‚©‚Á‚½‘Šè‚ªEnemy‚¾‚Á‚½‚ç
+        //ã¶ã¤ã‹ã£ãŸç›¸æ‰‹ãŒEnemyã ã£ãŸã‚‰
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            GetDamage(collision.gameObject);//ƒ_ƒ[ƒWˆ—
+            GetDamage(collision.gameObject);//ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
         }
     }
 
@@ -166,13 +166,13 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.gameState != GameState.playing) return;
 
-        GameManager.playerHP--;//ƒvƒŒƒCƒ„[HP‚ğ1Œ¸‚ç‚·
+        GameManager.playerHP--;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼HPã‚’1æ¸›ã‚‰ã™
 
         if (GameManager.playerHP > 0)
         {
             //
             rbody.linearVelocity = Vector2.zero; //new Vector2(0.0)
-            //ƒvƒŒƒCƒ„[‚Æ“G‚Æ‚Ì·‚ğæ“¾‚µA•ûŒü‚ğŒˆ‚ß‚é
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ•µã¨ã®å·®ã‚’å–å¾—ã—ã€æ–¹å‘ã‚’æ±ºã‚ã‚‹
             Vector3 v = (transform.position - enemy.transform.position).normalized;
             //
             rbody.AddForce(v * 4, ForceMode2D.Impulse);
@@ -191,22 +191,28 @@ public class PlayerController : MonoBehaviour
 
     void DamageEnd()
     {
-        inDamage = false;//“_–Åƒ_ƒ[ƒWƒtƒ‰ƒO‚ğ‰ğœ
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;//ƒvƒŒƒCƒ„[‚ğŠmÀ‚É•\¦
+        inDamage = false;//ç‚¹æ»…ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ•ãƒ©ã‚°ã‚’è§£é™¤
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç¢ºå®Ÿã«è¡¨ç¤º
     }
 
     void GameOver()
     {
-        //ƒQ[ƒ€‚Ìó‘Ô‚ğ•Ï‚¦‚é
+        //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’å¤‰ãˆã‚‹
         GameManager.gameState = GameState.gameover;
 
         //
-        GetComponent<CircleCollider2D>().enabled = false;//“–‚½‚è”»’è‚Ì–³Œø‰»
-        rbody.linearVelocity = Vector2.zero;//“®‚«‚ğ~‚ß‚é
-        rbody.gravityScale = 1.0f;//d—Í‚Ì•œŠˆ
-        anime.SetTrigger("dead");//€–S‚ÌƒAƒjƒƒNƒŠƒbƒv‚Ì”­“®
-        rbody.AddForce(new Vector2(0,5), ForceMode2D.Impulse);//ã‚É’µ‚Ëã‚°‚é
-        Destroy(gameObject, 1.0f);//1•bŒã‚É‘¶İ‚ğÁ‹
+        GetComponent<CircleCollider2D>().enabled = false;//å½“ãŸã‚Šåˆ¤å®šã®ç„¡åŠ¹åŒ–
+        rbody.linearVelocity = Vector2.zero;//å‹•ãã‚’æ­¢ã‚ã‚‹
+        rbody.gravityScale = 1.0f;//é‡åŠ›ã®å¾©æ´»
+        anime.SetTrigger("dead");//æ­»äº¡ã®ã‚¢ãƒ‹ãƒ¡ã‚¯ãƒªãƒƒãƒ—ã®ç™ºå‹•
+        rbody.AddForce(new Vector2(0,5), ForceMode2D.Impulse);//ä¸Šã«è·³ã­ä¸Šã’ã‚‹
+        Destroy(gameObject, 1.0f);//1ç§’å¾Œã«å­˜åœ¨ã‚’æ¶ˆå»
+
+    }
+
+    public void SpotLightCheck()
+    {
+        if (GameManager.hasSpotLight) spotLight.SetActive(true);
 
     }
 

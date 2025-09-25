@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameState gameState;//
 
-    public static bool[] doorsOpendState = { false, false, false };
+    public static bool[] doorsOpenedState = { false, false, false };
     public static int key1;
     public static int key2;
     public static int key3;
@@ -26,12 +26,12 @@ public class GameManager : MonoBehaviour
     public static int playerHP = 3;//
 
 
-    static public bool hasSpotLight;//ƒXƒ|ƒbƒgƒ‰ƒCƒg‚ğ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    static public bool hasSpotLight;//ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆã‚’æŒã£ã¦ã„ã‚‹ã‹ã©ã†ã‹
 
 
     void Start()
     {
-        //‚Ü‚¸‚ÍƒQ[ƒ€‚ÍŠJnó‘Ô‚É‚·‚é
+        //ã¾ãšã¯ã‚²ãƒ¼ãƒ ã¯é–‹å§‹çŠ¶æ…‹ã«ã™ã‚‹
         gameState = GameState.playing;
     }
 
